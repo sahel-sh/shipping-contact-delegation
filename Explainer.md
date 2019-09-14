@@ -16,7 +16,7 @@ subset of the required paymentOptions, the browser will only send that subset to
 remaining data itself.
 
 # Enable Delegations
-The payment handler should specify which user infromation they can handle.
+Payment Handlers should specify which user infromation they can provide during registration.
 ```idl
 enum PaymentDelegation {
   "shippingAddress",
@@ -64,7 +64,7 @@ interface PaymentRequestEvent : ExtendableEvent {
     … 
     [CallWith=ScriptState] readonly attribute object?   paymentOptions;
     readonly attribute FrozenArray<PaymentShippingOption>?    shippingOptions;
-}
+};
 
 dictionary PaymentRequestEventInit : ExtendableEventInit {
     … 
@@ -74,7 +74,7 @@ dictionary PaymentRequestEventInit : ExtendableEventInit {
 ```
 # Payment Handler Response
 The payment handler should provide required information in its response. If shipping is requested the response should include
-a shipping option id in addition to the shipping address.
+the shipping option id in addition to the shipping address. Then the browser will validate the response (country format, shipping address Id, non-empty strings for required payer information, etc) and send it the merchant.
 ```idl
 dictionary PaymentHandlerResponse {
     … 
@@ -85,3 +85,22 @@ dictionary PaymentHandlerResponse {
     DOMString? shippingOption;
 };
 ```
+# Shipping Address/Option Change Events
+Payment handlers which support shipping delegation should be able to fire [shipping[address|option]change](https://w3c.github.io/payment-request/#summary) events to let the merchant know that the user has selected a different shipping address/option. The browser will then get the
+updated request details from merchant and forward it to the payment handler after redacting [displayItems](https://w3c.github.io/payment-request/#dom-paymentdetailsbase-displayitems). We propose to change [PaymentMethodChangeResponse](https://w3c.github.io/payment-handler/#the-paymentmethodchangeresponse) into a generic dictionary used for forwarding merchant's responses to [payment method|shipping address\shipping option] events to payment handlers.
+```idl
+interface PaymentRequestEvent : ExtendableEvent {
+    … 
+    [CallWith=ScriptState] Promise<PaymentRequestDetailsUpdate?> changeShippingAddress(PaymentAddressInit shippingAddress);
+    [CallWith=ScriptState] Promise<PaymentRequestDetailsUpdate?> changeShippingOption(DOMString shippingOption);
+};
+
+dictionary PaymentRequestDetailsUpdate {
+    … 
+    FrozenArray<PaymentShippingOption> shippingOptions;
+    … 
+    AddressErrors shippingAddressErrors;
+};
+```
+
+
