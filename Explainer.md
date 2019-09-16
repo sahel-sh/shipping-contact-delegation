@@ -26,7 +26,7 @@ enum PaymentDelegation {
 };
 interface PaymentManager {
   …
-  [CallWith=ScriptState] Promise<void> enableDelegations(FrozenArray<PaymentDelegation> delegations);
+  Promise<void> enableDelegations(FrozenArray<PaymentDelegation> delegations);
 };
 ```
 
@@ -62,7 +62,7 @@ browser should include merchant provided shippingOptions as well.
 ```idl
 interface PaymentRequestEvent : ExtendableEvent {
     … 
-    [CallWith=ScriptState] readonly attribute object?   paymentOptions;
+    readonly attribute object?   paymentOptions;
     readonly attribute FrozenArray<PaymentShippingOption>?    shippingOptions;
 };
 
