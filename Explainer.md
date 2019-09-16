@@ -91,8 +91,8 @@ updated request details from merchant and forward it to the payment handler afte
 ```idl
 interface PaymentRequestEvent : ExtendableEvent {
     … 
-    [CallWith=ScriptState] Promise<PaymentRequestDetailsUpdate?> changeShippingAddress(PaymentAddressInit shippingAddress);
-    [CallWith=ScriptState] Promise<PaymentRequestDetailsUpdate?> changeShippingOption(DOMString shippingOption);
+    Promise<PaymentRequestDetailsUpdate?> changeShippingAddress(PaymentAddressInit shippingAddress);
+    Promise<PaymentRequestDetailsUpdate?> changeShippingOption(DOMString shippingOption);
 };
 
 dictionary PaymentRequestDetailsUpdate {
