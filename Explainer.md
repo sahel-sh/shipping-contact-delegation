@@ -110,3 +110,53 @@ Under certain conditions Chrome decides to skip showing the payment sheet. Inste
 # Edit: Just In Time (JIT) Installation
 Under certain conditions Chrome might show an uninstalled payment handler in available payment instruments list, and install the payment handler later during the checkout if the user selects to proceed with it. Since payment handlers declare supported delegations during their registration, the browser does not know whether or not a JIT payment handler handles shipping or contact information while showing the payment sheet. To address this, payment handlers can specify their supported delegations in [Web App Manifest](https://www.w3.org/TR/appmanifest/) which is parsed before installation.
 
+# Edit: Security And Privacy Self-Assessment
+1- What information might this feature expose to Web sites or other parties, and for what purposes is that exposure necessary?
+>We do not share any extra information about the user with merchant's origin, but the source of the shipping address and payer's contact information changes from the browser to the user selected Payment Handler. The browser will still apply the same validation/redacting to the data provided by the payment handler before passing it to merchant's origin. The only extra piece of information that we share with Payment Handlers is whether or not the transaction requires shipping address/ or payer's contact info. If shipping address is requested, the browser also shares merchant provided shipping options with payment handler, so that the payment handler can ask the user to select their desired shipping option (e.g, same day, express, standard, etc.) We only share this information with the PH which specifies that it will collect shipping address and contact information from the user.
+
+2- Is this specification exposing the minimum amount of information necessary to power the feature?
+> The only extra transaction information exposed to the payment handler is boolean bits indicating whether or not the merchant has asked for shipping address or payer's contact information (name, phone, email), as well as merchant provided shipping options when shipping is requested. This information is shared with payment handlers that are capable of providing the merchant required information and only after the user selects the payment handler to complete the transaction.
+
+3- How does this specification deal with personal information or personally-identifiable information or information derived thereof?
+
+
+4- How does this specification deal with sensitive information?
+>It is unchanged. i.e. The browser still validates/redacts shipping address/ contact information regardless of whether it comes from the browser or payment handler before sending it to the merchant.
+
+5- Does this specification introduce new state for an origin that persists across browsing sessions?
+>No, it does not.
+
+6- What information from the underlying platform, e.g. configuration data, is exposed by this specification to an origin?
+>None
+
+7- Does this specification allow an origin access to sensors on a user’s device
+>No
+
+8- What data does this specification expose to an origin? Please also document what data is identical to data exposed by other features, in the same or different contexts
+> The user data is identical to [PaymentResponse](https://www.w3.org/TR/payment-request/#dom-paymentresponse) from Payment Request API.
+
+9- Does this specification enable new script execution/loading mechanisms?
+>No
+
+10- Does this specification allow an origin to access other devices?
+>No
+
+11- Does this specification allow an origin some measure of control over a user agent’s native UI?
+>No
+
+12- What temporary identifiers might this specification create or expose to the web?
+>None
+
+13- How does this specification distinguish between behavior in first-party and third-party contexts?
+
+
+14- How does this specification work in the context of a user agent’s Private Browsing or "incognito" mode?
+> Unchanged, identical to Payment Request and Payment Handler APIs.
+
+15- Does this specification have a "Security Considerations" and "Privacy Considerations" section?
+> Not yet, it will, once the spec draft is ready.
+
+16- Does this specification allow downgrading default security characteristics?
+> No
+
+
