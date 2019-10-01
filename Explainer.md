@@ -108,7 +108,20 @@ When the merchant calls paymentRequest.show(), the browser shows the "Payment Sh
 Under certain conditions Chrome decides to skip showing the payment sheet. Instead, goto the payment handler window directly to reduce the checkout steps. Currently asking for shipping address or contact information forces showing the "Payment Sheet" since the browser is responsible for providing this information. We propose to skip the payment sheet in cases where shipping address/contact info is required and the available payment handler can provide the merchant required information (other conditions are unchanged).
 
 # Edit: Just In Time (JIT) Installation
-Under certain conditions Chrome might show an uninstalled payment handler in available payment instruments list, and install the payment handler later during the checkout if the user selects to proceed with it. Since payment handlers declare supported delegations during their registration, the browser does not know whether or not a JIT payment handler handles shipping or contact information while showing the payment sheet. To address this, payment handlers can specify their supported delegations in [Web App Manifest](https://www.w3.org/TR/appmanifest/) which is parsed before installation.
+Under certain conditions Chrome might show an uninstalled payment handler in available payment instruments list, and install the payment handler later during the checkout if the user selects to proceed with it. Since payment handlers declare supported delegations during their registration, the browser does not know whether or not a JIT payment handler handles shipping or contact information while showing the payment sheet. To address this, payment handlers can specify their supported delegations in [Web App Manifest](https://www.w3.org/TR/appmanifest/) which is parsed before installation. An example payment app manifest will look like this:
+```json
+{
+  "name": "Pay with KylePay",
+  "short_name": "KylePay",
+  "icons": [{
+    "src": "icon.png",
+    "sizes": "48x48",
+    "type": "image/png"
+  }],
+  … 
+  "supported_delegations": ["shipping_address"]
+}
+```
 
 # Edit: Security Self-Assessment
 1- What information might this feature expose to Web sites or other parties, and for what purposes is that exposure necessary?
