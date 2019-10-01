@@ -109,7 +109,7 @@ Under certain conditions Chrome decides to skip showing the payment sheet. Inste
 
 # Edit: Just In Time (JIT) Installation
 Under certain conditions Chrome might show an uninstalled payment handler in available payment instruments list, and install the payment handler later during the checkout if the user selects to proceed with it. Since payment handlers declare supported delegations during their registration, the browser does not know whether or not a JIT payment handler handles shipping or contact information while showing the payment sheet. To address this, payment handlers can specify their supported delegations in [Web App Manifest](https://www.w3.org/TR/appmanifest/) which is parsed before installation. An example payment app manifest will look like this:
-```json
+```javascript
 {
   "name": "Pay with KylePay",
   "short_name": "KylePay",
@@ -119,7 +119,7 @@ Under certain conditions Chrome might show an uninstalled payment handler in ava
     "type": "image/png"
   }],
   … 
-  "supported_delegations": ["shipping_address"]
+  "supported_delegations": [ "shippingAddress", "PayerName" ]
 }
 ```
 
