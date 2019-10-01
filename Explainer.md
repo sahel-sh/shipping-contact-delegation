@@ -118,7 +118,7 @@ Under certain conditions Chrome might show an uninstalled payment handler in ava
 > The only extra transaction information exposed to the payment handler is boolean bits indicating whether or not the merchant has asked for shipping address or payer's contact information (name, phone, email), as well as merchant provided shipping options when shipping is requested. This information is shared with payment handlers that are capable of providing the merchant required information and only after the user selects the payment handler to complete the transaction.
 
 3- How does this specification deal with personal information or personally-identifiable information or information derived thereof?
-
+>It is unchanged. i.e. The browser still validates/redacts shipping address/ contact information regardless of whether it comes from the browser or payment handler before sending it to the merchant.
 
 4- How does this specification deal with sensitive information?
 >It is unchanged. i.e. The browser still validates/redacts shipping address/ contact information regardless of whether it comes from the browser or payment handler before sending it to the merchant.
@@ -148,7 +148,7 @@ Under certain conditions Chrome might show an uninstalled payment handler in ava
 >None
 
 13- How does this specification distinguish between behavior in first-party and third-party contexts?
-
+> Unchanged, identical to Payment Request and Payment Handler APIs.
 
 14- How does this specification work in the context of a user agent’s Private Browsing or "incognito" mode?
 > Unchanged, identical to Payment Request and Payment Handler APIs.
