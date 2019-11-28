@@ -119,7 +119,9 @@ Under certain conditions Chrome might show an uninstalled payment handler in ava
     "type": "image/png"
   }],
   … 
-  "supported_delegations": [ "shippingAddress", "PayerName" ]
+  "payment": {
+    "supported_delegations": ["shippingAddress", "payerName", "payerEmail", "payerPhone"]
+  }
 }
 ```
 
