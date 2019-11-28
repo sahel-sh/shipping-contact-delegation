@@ -11,9 +11,7 @@ information during installation. During checkout, the browser will include the m
 [PaymentRequestEvent](https://w3c.github.io/payment-handler/#the-paymentrequestevent) sent to the
 payment handler. Then, it will collect shipping and/or payer's contact information from the handlers'
 [response](https://w3c.github.io/payment-handler/#paymenthandlerresponse-dictionary).
-For compatibility purposes we propose partial delegation whenever needed. i.e. If the selected payment instrument can handle a
-subset of the required paymentOptions, the browser will only send that subset to the payment handler and provide/collect the
-remaining data itself. A simplier alternative is to only show the payment handlers that can handle requested information in the Payment Instruments list. 
+For simplicity we propose full delegation. i.e. the browser payment sheet will only show the payment handlers that can provide all requested information in the Payment Instruments list. 
 
 # Enable Delegations
 Payment Handlers should specify which user infromation they can provide during registration.
