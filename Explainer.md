@@ -84,7 +84,7 @@ dictionary PaymentHandlerResponse {
 };
 ```
 # Shipping Address/Option Change Events
-Payment handlers which support shipping delegation should be able to fire [shipping[address|option]change](https://w3c.github.io/payment-request/#summary) events to let the merchant know that the user has selected a different shipping address/option. The browser will then get the
+Payment handlers which support shipping delegation should be able to fire [shipping[address|option]change](https://w3c.github.io/payment-request/#summary) events to let the merchant know that the user has selected a different shipping address/option. We propose adding `changeShippingAddress()` and `changeShippingOption()` methods to the `PaymentRequestEvent` to enable this. The browser will then get the
 updated request details from merchant and forward it to the payment handler after redacting [displayItems](https://w3c.github.io/payment-request/#dom-paymentdetailsbase-displayitems). We propose to change [PaymentMethodChangeResponse](https://w3c.github.io/payment-handler/#the-paymentmethodchangeresponse) into a generic dictionary used for forwarding merchant's responses to [payment method|shipping address\shipping option] events to payment handlers. The newly added shippingOptions and shippingAddressErrors fields will get populated only when shipping address is requested and the payment handler can handle shipping.
 ```idl
 interface PaymentRequestEvent : ExtendableEvent {
